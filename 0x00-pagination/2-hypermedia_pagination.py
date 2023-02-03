@@ -44,10 +44,12 @@ class Server:
         }
         dico["next_page"] = page + 1
         dico["prev_page"] = page - 1
-        if data == []:
-            dico["next_page"] = None
         tot = len(self.dataset()) / page_size
         dico["total_pages"] = math.floor(tot + 1)
         if tot % 1 == 0.0:
             dico["total_pages"] = math.floor(tot)
+        if page == 1:
+            dico["prev_page"] = None
+        if page >= dico["total_pages"]:
+            dico["next_page"] = None
         return dico
